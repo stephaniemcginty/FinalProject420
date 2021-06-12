@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CovidPetsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BreedsTable">
+          <Key>
+            <PropertyRef Name="BreedID" />
+          </Key>
+          <Property Name="BreedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BreedType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CasesTable">
+          <Key>
+            <PropertyRef Name="CasesID" />
+          </Key>
+          <Property Name="CasesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cDate" Type="datetime" Nullable="false" />
+          <Property Name="totalCases" Type="int" Nullable="false" />
+          <Property Name="newCases" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PetsTable">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pDate" Type="datetime" Nullable="false" />
+          <Property Name="LicenseID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BreedID" Type="int" Nullable="false" />
+          <Property Name="SpeciesID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpeciesTable">
+          <Key>
+            <PropertyRef Name="SpeciesID" />
+          </Key>
+          <Property Name="SpeciesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpeciesType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PetsTable_BreedsTable">
+          <End Role="BreedsTable" Type="Self.BreedsTable" Multiplicity="1" />
+          <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BreedsTable">
+              <PropertyRef Name="BreedID" />
+            </Principal>
+            <Dependent Role="PetsTable">
+              <PropertyRef Name="BreedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PetsTable_SpeciesTable">
+          <End Role="SpeciesTable" Type="Self.SpeciesTable" Multiplicity="1" />
+          <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpeciesTable">
+              <PropertyRef Name="SpeciesID" />
+            </Principal>
+            <Dependent Role="PetsTable">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CovidPetsModelStoreContainer">
+          <EntitySet Name="BreedsTable" EntityType="Self.BreedsTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CasesTable" EntityType="Self.CasesTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PetsTable" EntityType="Self.PetsTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpeciesTable" EntityType="Self.SpeciesTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PetsTable_BreedsTable" Association="Self.FK_PetsTable_BreedsTable">
+            <End Role="BreedsTable" EntitySet="BreedsTable" />
+            <End Role="PetsTable" EntitySet="PetsTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PetsTable_SpeciesTable" Association="Self.FK_PetsTable_SpeciesTable">
+            <End Role="SpeciesTable" EntitySet="SpeciesTable" />
+            <End Role="PetsTable" EntitySet="PetsTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CovidPetsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BreedsTable">
+          <Key>
+            <PropertyRef Name="BreedID" />
+          </Key>
+          <Property Name="BreedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BreedType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PetsTables" Relationship="Self.FK_PetsTable_BreedsTable" FromRole="BreedsTable" ToRole="PetsTable" />
+        </EntityType>
+        <EntityType Name="CasesTable">
+          <Key>
+            <PropertyRef Name="CasesID" />
+          </Key>
+          <Property Name="CasesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="totalCases" Type="Int32" Nullable="false" />
+          <Property Name="newCases" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PetsTable">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LicenseID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BreedID" Type="Int32" Nullable="false" />
+          <Property Name="SpeciesID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BreedsTable" Relationship="Self.FK_PetsTable_BreedsTable" FromRole="PetsTable" ToRole="BreedsTable" />
+          <NavigationProperty Name="SpeciesTable" Relationship="Self.FK_PetsTable_SpeciesTable" FromRole="PetsTable" ToRole="SpeciesTable" />
+        </EntityType>
+        <EntityType Name="SpeciesTable">
+          <Key>
+            <PropertyRef Name="SpeciesID" />
+          </Key>
+          <Property Name="SpeciesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpeciesType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PetsTables" Relationship="Self.FK_PetsTable_SpeciesTable" FromRole="SpeciesTable" ToRole="PetsTable" />
+        </EntityType>
+        <Association Name="FK_PetsTable_BreedsTable">
+          <End Role="BreedsTable" Type="Self.BreedsTable" Multiplicity="1" />
+          <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BreedsTable">
+              <PropertyRef Name="BreedID" />
+            </Principal>
+            <Dependent Role="PetsTable">
+              <PropertyRef Name="BreedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PetsTable_SpeciesTable">
+          <End Role="SpeciesTable" Type="Self.SpeciesTable" Multiplicity="1" />
+          <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpeciesTable">
+              <PropertyRef Name="SpeciesID" />
+            </Principal>
+            <Dependent Role="PetsTable">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CovidPetsEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BreedsTables" EntityType="Self.BreedsTable" />
+          <EntitySet Name="CasesTables" EntityType="Self.CasesTable" />
+          <EntitySet Name="PetsTables" EntityType="Self.PetsTable" />
+          <EntitySet Name="SpeciesTables" EntityType="Self.SpeciesTable" />
+          <AssociationSet Name="FK_PetsTable_BreedsTable" Association="Self.FK_PetsTable_BreedsTable">
+            <End Role="BreedsTable" EntitySet="BreedsTables" />
+            <End Role="PetsTable" EntitySet="PetsTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PetsTable_SpeciesTable" Association="Self.FK_PetsTable_SpeciesTable">
+            <End Role="SpeciesTable" EntitySet="SpeciesTables" />
+            <End Role="PetsTable" EntitySet="PetsTables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CovidPetsModelStoreContainer" CdmEntityContainer="CovidPetsEntitiesConnection">
+          <EntitySetMapping Name="BreedsTables">
+            <EntityTypeMapping TypeName="CovidPetsModel.BreedsTable">
+              <MappingFragment StoreEntitySet="BreedsTable">
+                <ScalarProperty Name="BreedID" ColumnName="BreedID" />
+                <ScalarProperty Name="BreedType" ColumnName="BreedType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CasesTables">
+            <EntityTypeMapping TypeName="CovidPetsModel.CasesTable">
+              <MappingFragment StoreEntitySet="CasesTable">
+                <ScalarProperty Name="CasesID" ColumnName="CasesID" />
+                <ScalarProperty Name="cDate" ColumnName="cDate" />
+                <ScalarProperty Name="totalCases" ColumnName="totalCases" />
+                <ScalarProperty Name="newCases" ColumnName="newCases" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetsTables">
+            <EntityTypeMapping TypeName="CovidPetsModel.PetsTable">
+              <MappingFragment StoreEntitySet="PetsTable">
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="pDate" ColumnName="pDate" />
+                <ScalarProperty Name="LicenseID" ColumnName="LicenseID" />
+                <ScalarProperty Name="BreedID" ColumnName="BreedID" />
+                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpeciesTables">
+            <EntityTypeMapping TypeName="CovidPetsModel.SpeciesTable">
+              <MappingFragment StoreEntitySet="SpeciesTable">
+                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
+                <ScalarProperty Name="SpeciesType" ColumnName="SpeciesType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
