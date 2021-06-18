@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CovidPetsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BreedsTable">
+    <Key>
+      <PropertyRef Name="BreedID" />
+    </Key>
+    <Property Name="BreedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BreedType" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CasesTable">
+    <Key>
+      <PropertyRef Name="CasesID" />
+    </Key>
+    <Property Name="CasesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cDate" Type="datetime" Nullable="false" />
+    <Property Name="totalCases" Type="int" Nullable="false" />
+    <Property Name="newCases" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PetsTable">
+    <Key>
+      <PropertyRef Name="PetID" />
+    </Key>
+    <Property Name="PetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pDate" Type="datetime" Nullable="false" />
+    <Property Name="LicenseID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BreedID" Type="int" Nullable="false" />
+    <Property Name="SpeciesID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpeciesTable">
+    <Key>
+      <PropertyRef Name="SpeciesID" />
+    </Key>
+    <Property Name="SpeciesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpeciesType" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_PetsTable_BreedsTable">
+    <End Role="BreedsTable" Type="Self.BreedsTable" Multiplicity="1" />
+    <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BreedsTable">
+        <PropertyRef Name="BreedID" />
+      </Principal>
+      <Dependent Role="PetsTable">
+        <PropertyRef Name="BreedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PetsTable_SpeciesTable">
+    <End Role="SpeciesTable" Type="Self.SpeciesTable" Multiplicity="1" />
+    <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpeciesTable">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="PetsTable">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CovidPetsModelStoreContainer">
+    <EntitySet Name="BreedsTable" EntityType="Self.BreedsTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CasesTable" EntityType="Self.CasesTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PetsTable" EntityType="Self.PetsTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpeciesTable" EntityType="Self.SpeciesTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PetsTable_BreedsTable" Association="Self.FK_PetsTable_BreedsTable">
+      <End Role="BreedsTable" EntitySet="BreedsTable" />
+      <End Role="PetsTable" EntitySet="PetsTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PetsTable_SpeciesTable" Association="Self.FK_PetsTable_SpeciesTable">
+      <End Role="SpeciesTable" EntitySet="SpeciesTable" />
+      <End Role="PetsTable" EntitySet="PetsTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

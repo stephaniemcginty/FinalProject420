@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CovidPetsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BreedsTable">
+    <Key>
+      <PropertyRef Name="BreedID" />
+    </Key>
+    <Property Name="BreedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BreedType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PetsTables" Relationship="Self.FK_PetsTable_BreedsTable" FromRole="BreedsTable" ToRole="PetsTable" />
+  </EntityType>
+  <EntityType Name="CasesTable">
+    <Key>
+      <PropertyRef Name="CasesID" />
+    </Key>
+    <Property Name="CasesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="totalCases" Type="Int32" Nullable="false" />
+    <Property Name="newCases" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PetsTable">
+    <Key>
+      <PropertyRef Name="PetID" />
+    </Key>
+    <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LicenseID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BreedID" Type="Int32" Nullable="false" />
+    <Property Name="SpeciesID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BreedsTable" Relationship="Self.FK_PetsTable_BreedsTable" FromRole="PetsTable" ToRole="BreedsTable" />
+    <NavigationProperty Name="SpeciesTable" Relationship="Self.FK_PetsTable_SpeciesTable" FromRole="PetsTable" ToRole="SpeciesTable" />
+  </EntityType>
+  <EntityType Name="SpeciesTable">
+    <Key>
+      <PropertyRef Name="SpeciesID" />
+    </Key>
+    <Property Name="SpeciesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SpeciesType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PetsTables" Relationship="Self.FK_PetsTable_SpeciesTable" FromRole="SpeciesTable" ToRole="PetsTable" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_PetsTable_BreedsTable">
+    <End Role="BreedsTable" Type="Self.BreedsTable" Multiplicity="1" />
+    <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BreedsTable">
+        <PropertyRef Name="BreedID" />
+      </Principal>
+      <Dependent Role="PetsTable">
+        <PropertyRef Name="BreedID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PetsTable_SpeciesTable">
+    <End Role="SpeciesTable" Type="Self.SpeciesTable" Multiplicity="1" />
+    <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpeciesTable">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="PetsTable">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CovidPetsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BreedsTables" EntityType="Self.BreedsTable" />
+    <EntitySet Name="CasesTables" EntityType="Self.CasesTable" />
+    <EntitySet Name="PetsTables" EntityType="Self.PetsTable" />
+    <EntitySet Name="SpeciesTables" EntityType="Self.SpeciesTable" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_PetsTable_BreedsTable" Association="Self.FK_PetsTable_BreedsTable">
+      <End Role="BreedsTable" EntitySet="BreedsTables" />
+      <End Role="PetsTable" EntitySet="PetsTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PetsTable_SpeciesTable" Association="Self.FK_PetsTable_SpeciesTable">
+      <End Role="SpeciesTable" EntitySet="SpeciesTables" />
+      <End Role="PetsTable" EntitySet="PetsTables" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

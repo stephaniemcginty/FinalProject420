@@ -9,16 +9,15 @@ namespace FinalProject.Controllers
 {
     public class Q1Controller : ApiController
     {
-        public IHttpActionResult GetQuery1()
+
+        CovidPetsEntities petsData = new CovidPetsEntities();
+
+        // GET api/<controller>
+        [Route("api/pets/query1")]
+        [HttpGet]
+        public IEnumerable<object> GetQuery1()
         {
-            CovidPetsEntitiesConnection myData = new CovidPetsEntitiesConnection();
-
-            var petAdoptions2019 = //from onePet in myData.PetsTables
-            
-             
-                
-
-            return Json(petAdoptions2019);
+            return null;
         }
     }
 }
