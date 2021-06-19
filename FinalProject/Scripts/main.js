@@ -21,17 +21,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 function getQuery1() {
-    console.log("runs js function");
-    $.getJSON("api/pets/query1")
+    $.getJSON("api/Q1")
         .done(function (data) {
+            console.log(data);
             $.each(data, function (key, item) {
                 //Add a list item for the product.
-                //$('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
-                console.log("loops thru data");
+                $('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
             });
             console.log(data);
             let table = document.getElementById("table1");
-            generateTable(table, data);
+            //generateTable(table, data);
         });
 }
 
