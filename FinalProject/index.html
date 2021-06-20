@@ -14,107 +14,115 @@
             border: 1px black solid;
         }
     </style>
-
-
-
+   
 </head>
-<body>
-    <h2>Number of pet adoptions in 2019 versus 2020. (Did it increase?)</h2>
-    <button id="getTotalPets">Get number of pet adoptions</button>
-    <p>
+        <body >
+            <h1>Covid 19's Effects on Pet Adoptions</h1>
+        <h2 > Number of pet adoptions in 2019 versus 2020. (Did it increase?)</h2 >
+        <button id="getTotalPets" > Get number of pet adoptions</button >
+        <p >
 
-    </p>
-    <ul id="displayPets1"></ul>
+        </p >
+        <ul id="displayPets1" > </ul >
 
-    <table id="table1">
-        <thead>
-            <tr>
-                <th>2019</th>
-                <th>2020</th>
+        <table id="table1" hidden>
+        <thead >
+        <tr >
+        <th > 2019</th >
+        <th > 2020</th >
+        </tr >
+            <tr >
+                <td id="row1-col1" hidden></td>
+                <td id="row2-col2" hidden></td>
             </tr>
-        </thead>
-    </table>
+        </thead >
+        </table>
+
+        <table id="tabletohide">
+
+        </table>
+
+        
+
+        <br >
+        <h2 > Compare the number of cat and dog adoptions between 2 years. (Which increased more?)</h2 >
+
+        <label for="years1" > Choose first year:</label >
+        <select name="years1" id="years1-select" >
+        <option value="2015" > 2015</option >
+        <option value="2016" > 2016</option >
+        <option value="2017" > 2017</option >
+        <option value="2018" > 2018</option >
+        <option value="2019" > 2019</option >
+        <option value="2020" > 2020</option >
+        <option value="2021" > 2021</option >
+        </select >
+
+        <br / >
+
+        <label for="years2" > Choose second year:</label >
+        <select name="years2" id="years2-select" >
+        <option value="2015" > 2015</option >
+        <option value="2016" > 2016</option >
+        <option value="2017" > 2017</option >
+        <option value="2018" > 2018</option >
+        <option value="2019" > 2019</option >
+        <option value="2020" > 2020</option >
+        <option value="2021" > 2021</option >
+        </select >
+
+        <br / >
+
+        <button id ="getCatsVSDogs" class="btn btn-primary" > Get cat adoptions versus dog adoptions</button >
+        <p >
+
+        </p >
+
+        <table id="table2" >
+        <thead >
+        <tr >
+        </tr >
+        </thead >
+        </table >
+
+        <br >
+        <h2 > Top 10 popular cat or dog breeds by year</h2 >
+
+        <label for="animal" > Choose an animal:</label >
+        <select name="animal" id="animal-select" >
+        <option value="1" > Cat</option >
+        <option value="2" > Dog</option >
+        </select >
+
+        <br / >
+
+        <label for="breedYear" > Choose a year:</label >
+        <select name="breedYear" id="breedYear-select" >
+        <option value="2015" > 2015</option >
+        <option value="2016" > 2016</option >
+        <option value="2017" > 2017</option >
+        <option value="2018" > 2018</option >
+        <option value="2019" > 2019</option >
+        <option value="2020" > 2020</option >
+        <option value="2021" > 2021</option >
+        </select >
+
+        <br / >
+
+        <button id="getTop3" > Get top 10 popular breeds</button >
+        <p >
+
+        </p >
+
+        <table id="table3" >
+        <thead >
+        <tr >
+        </tr >
+        </thead >
+        </table >
 
 
-    <br>
-    <h2>Compare the number of cat and dog adoptions between 2 years. (Which increased more?)</h2>
-
-    <label for="years1">Choose first year:</label>
-    <select name="years1" id="years1-select">
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-    </select>
-
-    <br />
-
-    <label for="years2">Choose second year:</label>
-    <select name="years2" id="years2-select">
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-    </select>
-
-    <br />
-
-    <button id="getCatsVSDogs">Get cat adoptions versus dog adoptions</button>
-    <p>
-
-    </p>
-
-    <table id="table2">
-        <thead>
-            <tr>
-            </tr>
-        </thead>
-    </table>
-
-    <br>
-    <h2>Top 10 popular cat or dog breeds by year</h2>
-
-    <label for="animal">Choose an animal:</label>
-    <select name="animal" id="animal-select">
-        <option value="1">Cat</option>
-        <option value="2">Dog</option>
-    </select>
-
-    <br />
-
-    <label for="breedYear">Choose a year:</label>
-    <select name="breedYear" id="breedYear-select">
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-    </select>
-
-    <br />
-
-    <button id="getTop3">Get top 10 popular breeds</button>
-    <p>
-
-    </p>
-
-    <table id="table3">
-        <thead>
-            <tr>
-            </tr>
-        </thead>
-    </table>
-
-
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
-    <script src="Scripts/main.js"></script>
-</body>
-</html>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js" > </script >
+        <script src="Scripts/main.js" > </script >
+        </body >
+        </html >

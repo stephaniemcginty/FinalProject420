@@ -15,6 +15,7 @@ namespace FinalProject.Controllers
             CovidPetsEntities petsData = new CovidPetsEntities();
             // Number of pet adoptions in 2019 versus 2020. (Did it increase?)
 
+            int[] myData = new int[2];
             var d1 = "12-31-2019";
             var d2 = "12-31-2020";
             var date2019 = Convert.ToDateTime(d1);
@@ -29,9 +30,11 @@ namespace FinalProject.Controllers
             var petAdoptions2020 = (from onePet in petsData.PetsTables
                                     where onePet.pDate <= date2020
                                     select new { onePet.PetID }).Count();
+            myData[0] = petAdoptions2019;
+            myData[1] = petAdoptions2020;
 
-
-            return Json(petAdoptions2019);
+            return Json(myData);
+            //return myData.ToList();
         }
     }
 }

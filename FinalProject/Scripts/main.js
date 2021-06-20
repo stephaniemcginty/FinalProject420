@@ -24,13 +24,32 @@ function getQuery1() {
     $.getJSON("api/Q1")
         .done(function (data) {
             console.log(data);
-            $.each(data, function (key, item) {
+            //$.each(data, function (key, item) {
                 //Add a list item for the product.
-                $('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
-            });
-            console.log(data);
+                //$('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
+            //});
+            
             let table = document.getElementById("table1");
-            //generateTable(table, data);
+            table.hidden = false;
+            //table.insertRow(data[0]);
+            //let firstYear = document.createTextNode(data[0]);
+            //table.insertRow(1).insertCell(0).appendChild(firstYear);
+            let display2019 = document.getElementById("row1-col1");
+            display2019.hidden = false;
+            display2019.innerHTML = data[0];
+
+            let display2020 = document.getElementById("row2-col2");
+            display2020.hidden = false;
+            display2020.innerHTML = data[1];
+
+            document.getElementById("tabletohide").hidden = true;
+
+            //let secondYear = document.createTextNode(data[1]);
+            //table.Row(1).insertCell(1).appendChild(secondYear);
+
+
+            //let text = document.createTextNode(element[key]);
+            //cell.appendChild(text);
         });
 }
 
