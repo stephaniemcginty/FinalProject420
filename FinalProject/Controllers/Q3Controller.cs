@@ -12,7 +12,7 @@ namespace FinalProject.Controllers
     public class Q3Controller : ApiController
     {
         // entity for sql database
-        CovidPetsEntities petsData = new CovidPetsEntities();
+        CovidPetsEntities1 petsData = new CovidPetsEntities1();
 
         // GET api/<controller>
         [Route("api/pets/query3/{species}/{year}")]

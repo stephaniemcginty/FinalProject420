@@ -42,14 +42,12 @@ function getQuery1() {
             display2020.hidden = false;
             display2020.innerHTML = data[1];
 
-            document.getElementById("tabletohide").hidden = true;
+            let displayCovid2020 = document.getElementById("covidCases");
+            //display2020.hidden = false;
+            displayCovid2020.innerHTML = data[2];
+            //displayCovid2020.hidden = false;
 
-            //let secondYear = document.createTextNode(data[1]);
-            //table.Row(1).insertCell(1).appendChild(secondYear);
-
-
-            //let text = document.createTextNode(element[key]);
-            //cell.appendChild(text);
+            console.log(data[2]);
         });
 }
 

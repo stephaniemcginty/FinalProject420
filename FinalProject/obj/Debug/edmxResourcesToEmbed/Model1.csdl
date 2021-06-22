@@ -61,7 +61,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CovidPetsEntitiesConnection" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CovidPetsEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BreedsTables" EntityType="Self.BreedsTable" />
     <EntitySet Name="CasesTables" EntityType="Self.CasesTable" />
     <EntitySet Name="PetsTables" EntityType="Self.PetsTable" />

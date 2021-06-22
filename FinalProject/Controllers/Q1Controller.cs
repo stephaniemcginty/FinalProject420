@@ -12,10 +12,11 @@ namespace FinalProject.Controllers
 
         public IHttpActionResult GetQuery1()
         {
-            CovidPetsEntities petsData = new CovidPetsEntities();
-            // Number of pet adoptions in 2019 versus 2020. (Did it increase?)
+            CovidPetsEntities1 petsData = new CovidPetsEntities1();
+            CovidPetsEntities1 covidData = new CovidPetsEntities1();
 
-            int[] myData = new int[2];
+            // Number of pet adoptions in 2019 versus 2020. (Did it increase?)
+            int[] myData = new int[4];
             var d1 = "12-31-2019";
             var d2 = "12-31-2020";
             var date2019 = Convert.ToDateTime(d1);
@@ -30,11 +31,17 @@ namespace FinalProject.Controllers
             var petAdoptions2020 = (from onePet in petsData.PetsTables
                                     where onePet.pDate <= date2020
                                     select new { onePet.PetID }).Count();
+
+            // Number of Covid cases in 2020
+            var covidCases2020 = (from cases in covidData.CasesTables 
+                                  where cases.CasesID ==  67
+                                  select cases.totalCases).First();
+
             myData[0] = petAdoptions2019;
             myData[1] = petAdoptions2020;
+            myData[2] = covidCases2020;
 
             return Json(myData);
-            //return myData.ToList();
         }
     }
 }

@@ -13,10 +13,10 @@ namespace FinalProject
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CovidPetsEntities : DbContext
+    public partial class CovidPetsEntities1 : DbContext
     {
-        public CovidPetsEntities()
-            : base("name=CovidPetsEntities")
+        public CovidPetsEntities1()
+            : base("name=CovidPetsEntities1")
         {
         }
     
@@ -29,6 +29,5 @@ namespace FinalProject
         public virtual DbSet<CasesTable> CasesTables { get; set; }
         public virtual DbSet<PetsTable> PetsTables { get; set; }
         public virtual DbSet<SpeciesTable> SpeciesTables { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
