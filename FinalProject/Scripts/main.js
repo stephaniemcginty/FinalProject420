@@ -46,6 +46,7 @@ function getQuery1() {
             //display2020.hidden = false;
             displayCovid2020.innerHTML = data[2];
             //displayCovid2020.hidden = false;
+            document.getElementById("tabletohide").hidden = true;
 
             console.log(data[2]);
         });
