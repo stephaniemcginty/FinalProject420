@@ -37,6 +37,16 @@
     <Property Name="SpeciesType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="PetsTables" Relationship="Self.FK_PetsTable_SpeciesTable" FromRole="SpeciesTable" ToRole="PetsTable" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <Association Name="FK_PetsTable_BreedsTable">
     <End Role="BreedsTable" Type="Self.BreedsTable" Multiplicity="1" />
     <End Role="PetsTable" Type="Self.PetsTable" Multiplicity="*" />
@@ -61,11 +71,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CovidPetsEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CovidPetsEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BreedsTables" EntityType="Self.BreedsTable" />
     <EntitySet Name="CasesTables" EntityType="Self.CasesTable" />
     <EntitySet Name="PetsTables" EntityType="Self.PetsTable" />
     <EntitySet Name="SpeciesTables" EntityType="Self.SpeciesTable" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <AssociationSet Name="FK_PetsTable_BreedsTable" Association="Self.FK_PetsTable_BreedsTable">
       <End Role="BreedsTable" EntitySet="BreedsTables" />
       <End Role="PetsTable" EntitySet="PetsTables" />

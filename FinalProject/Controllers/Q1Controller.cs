@@ -12,8 +12,8 @@ namespace FinalProject.Controllers
 
         public IHttpActionResult GetQuery1()
         {
-            CovidPetsEntities1 petsData = new CovidPetsEntities1();
-            CovidPetsEntities1 covidData = new CovidPetsEntities1();
+            CovidPetsEntities2 petsData = new CovidPetsEntities2();
+            CovidPetsEntities2 covidData = new CovidPetsEntities2();
 
             // Number of pet adoptions in 2019 versus 2020. (Did it increase?)
             int[] myData = new int[4];
