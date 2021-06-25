@@ -25,10 +25,10 @@ function getQuery1() {
         .done(function (data) {
             console.log(data);
             //$.each(data, function (key, item) {
-                //Add a list item for the product.
-                //$('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
+            //Add a list item for the product.
+            //$('<li>', { text: formatItem1(item) }).appendTo($('#displayPets1'));
             //});
-            
+
             let table = document.getElementById("table1");
             table.hidden = false;
             //table.insertRow(data[0]);
@@ -82,8 +82,51 @@ function getQuery3() {
             let table = document.getElementById("table3");
             // prints data to console
             console.log(data);
+
+            // creates table with breed and number headers
+            let row = table.insertRow();
+            let cell = row.insertCell();
+            let text = document.createTextNode("Breed");
+            cell.appendChild(text);
+            let cell2 = row.insertCell();
+            let text2 = document.createTextNode("Number");
+            cell2.appendChild(text2);
+
             // generates table using data from query
             generateTable(table, data);
+
+            var json = []; // first row needs to be headers 
+            var headers = [];
+            for (var i = 0; i < table.rows[0].cells.length; i++) {
+                headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+            }
+
+            // go through cells 
+            for (var i = 1; i < table.rows.length; i++) {
+                var tableRow = table.rows[i];
+                var rowData = {};
+                for (var j = 0; j < tableRow.cells.length; j++) {
+                    rowData[headers[j]] = tableRow.cells[j].innerHTML;
+                }
+
+                json.push(rowData);
+            }
+
+            console.log(json);
+
+            // map JSON values back to label array
+            var labels = json.map(function (e) {
+                return e.breed;
+            });
+            console.log(labels);
+
+            // map JSON values back to values array
+            var values = json.map(function (e) {
+                return e.number;
+            });
+            console.log(values);
+
+            var chart = BuildChart(labels, values, "Top 5 Breeds");
         });
 }
 
@@ -99,5 +142,49 @@ function generateTable(table, data) {
     }
 }
 
-
-
+// functions creates a chart using labels, data, and title parameters
+function BuildChart(labels, values, chartTitle) {
+    //Remove the canvas after every chart call, this worked for me
+    $("canvas").remove();
+    $("div.card-body").append('<canvas id="myChart"></canvas>');
+    $("div.card").css("display", "block");
+    // grabs chart element
+    var ctx = document.getElementById("myChart").getContext('2d');
+    // creates the chart
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        height: 200,
+        data: {
+            labels: labels, // uses labels parameters
+            datasets: [{
+                label: chartTitle, // titles the chart
+                data: values, // inputs values
+                backgroundColor: [ // colors
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [ // color borders
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1 // bar border width
+            }]
+        },
+        options: {
+            legend: {
+                display: false,
+            },
+            responsive: true, // makes chart responsive, resizes based on browser
+            maintainAspectRatio: true, // prevents default behavior of full-width/height 
+        }
+    });
+    return myChart;
+}
